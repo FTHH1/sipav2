@@ -1,28 +1,19 @@
 <x-layouts::app :title="__('Dashboard')">
-    <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
 
-        <p>Role kamu: {{ auth()->user()->role }}</p>
-            @auth
-                @php
-                    $role = auth()->user()->role;
-                @endphp
+    <div class="max-w-7xl mx-auto px-6 py-6">
 
-            @endauth
+        @role('admin')
+            @include('dashboard.partials.admin')
+        @endrole
 
-        <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                       {{ auth()->user()->role }}
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-            </div>
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-            </div>
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-            </div>
-        </div>
-        <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-            <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-        </div>
+        @role('petugas')
+            @include('dashboard.partials.petugas')
+        @endrole
+
+        @role('peminjam')
+            @include('dashboard.partials.peminjam')
+        @endrole
+
     </div>
+
 </x-layouts::app>

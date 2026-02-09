@@ -10,11 +10,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/dashboard', fn () => view('dashboard'))
         ->name('dashboard');
 
-    // Alias admin dashboard (opsional, untuk redirect Fortify)
-    Route::middleware('role:admin')->group(function () {
-        Route::get('/admin/dashboard', fn () => view('dashboard'))
-            ->name('admin.dashboard');
-    });
+    // Optional alias khusus admin (redirect saja)
+    Route::get('/admin/dashboard', fn () => redirect()->route('dashboard'))
+        ->middleware('role:admin')
+        ->name('admin.dashboard');
 
 });
 
