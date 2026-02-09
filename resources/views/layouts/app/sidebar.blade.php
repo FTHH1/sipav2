@@ -20,43 +20,26 @@
 
             <flux:spacer />
 
-            <flux:sidebar.nav>
-                <flux:sidebar.item icon="folder-git-2" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                    {{ __('Repository') }}
-                </flux:sidebar.item>
+           <flux:sidebar.nav>
 
-                <flux:sidebar.item icon="book-open-text" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                    {{ __('Documentation') }}
-                </flux:sidebar.item>
-            </flux:sidebar.nav>
 
-            <x-desktop-user-menu class="hidden lg:block" :name="auth()->user()->name" />
+
+</flux:sidebar.nav>
+
 
 @auth
-    <div class="user-info">
-        {{ auth()->user()->name }}
-    </div>
-@endauth
-
-@auth
-    <div class="user">
-        {{ auth()->user()->name }}
-        <small>{{ auth()->user()->role }}</small>
-    </div>
-
-    @if(auth()->user()->role === 'petugas')
-        <a href="#">Menu Petugas</a>
-    @endif
-
-    @if(auth()->user()->role === 'peminjam')
-        <a href="#">Menu Peminjam</a>
-    @endif
+    <x-desktop-user-menu
+        class="hidden lg:block"
+        :name="auth()->user()->name"
+    />
 @endauth
 
         </flux:sidebar>
 
 
         <!-- Mobile User Menu -->
+        @auth
+       
         <flux:header class="lg:hidden">
             <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 
@@ -110,7 +93,7 @@
                 </flux:menu>
             </flux:dropdown>
         </flux:header>
-
+            @endauth
         {{ $slot }}
 
         @fluxScripts

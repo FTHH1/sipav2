@@ -2,42 +2,20 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('home'); 
+Route::get('/', fn () => view('welcome'))->name('home');
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware('auth')->group(function () {
 
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-
-    Route::get('/dashboard-petugas', function () {
-        return view('dashboard');
-    })->name('dashboard.petugas');
-
-    Route::get('/dashboard-peminjam', function () {
-        return view('dashboard');
-    })->name('dashboard.peminjam');
-
+    // Satu dashboard untuk semua role
     Route::get('/dashboard', fn () => view('dashboard'))
-    ->middleware('auth')
-    ->name('dashboard');
+        ->name('dashboard');
 
-    Route::get('/admin/dashboard', fn () => view('admin.dashboard'))
-    ->middleware('auth')
-    ->name('admin.dashboard');
-
-    Route::middleware(['auth', 'role:petugas'])->group(function () {
-    Route::get('/petugas', fn () => view('dashboard'));
+    // Alias admin dashboard (opsional, untuk redirect Fortify)
+    Route::middleware('role:admin')->group(function () {
+        Route::get('/admin/dashboard', fn () => view('dashboard'))
+            ->name('admin.dashboard');
     });
-
-    Route::middleware(['auth', 'role:peminjam'])->group(function () {
-    Route::get('/peminjam', fn () => view('dashboard'));
-    });
-
 
 });
-
 
 require __DIR__.'/settings.php';
